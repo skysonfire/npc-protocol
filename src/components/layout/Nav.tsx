@@ -17,11 +17,11 @@ const Nav = ({ className = '' }: NavProps) => {
             href="/" 
             className="text-xl font-bold text-text-primary hover:text-brand transition-colors duration-200"
           >
-            {clientConfig.navigation.logo}
+            {clientConfig.companyName}
           </Link>
           
           <div className="hidden md:flex space-x-8">
-            {clientConfig.navigation.links.map((link) => (
+            {clientConfig.navLinks.map((link: { name: string; href: string }) => (
               <Link 
                 key={link.name}
                 href={link.href}

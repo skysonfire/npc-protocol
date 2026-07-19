@@ -7,7 +7,11 @@ import Hero from '@/components/sections/Hero';
 const ContactPage = () => {
   return (
     <PageWrapper>
-      <Hero variant="centered" />
+      <Hero 
+        variant="centered" 
+        title="Get in Touch" 
+        subtitle="We'd love to hear from you" 
+      />
     </PageWrapper>
   );
 };

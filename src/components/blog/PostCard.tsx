@@ -3,41 +3,44 @@
 import React from 'react';
 import Link from 'next/link';
 
-interface PostCardProps {
+interface BlogPost {
+  slug: string;
   title: string;
-  excerpt: string;
   date: string;
   readTime: string;
-  slug: string;
-  image?: string;
-  imageAlt?: string;
+  excerpt: string;
 }
 
-const PostCard = ({ title, excerpt, date, readTime, slug, image, imageAlt }: PostCardProps) => {
+interface PostCardProps {
+  post: BlogPost;
+}
+
+const PostCard = ({ post }: PostCardProps) => {
   return (
-    <article className="bg-surface rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-      {image && (
-        <img 
-          src={image} 
-          alt={imageAlt || `Featured image for ${title}`}
-          className="w-full h-48 object-cover"
-        />
-      )}
+    <div className="bg-surface rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+      {/* Placeholder image */}
+      <div className="bg-gray-200 border-2 border-dashed rounded-t-lg w-full h-48 flex items-center justify-center text-gray-500">
+        Blog Image
+      </div>
+      
       <div className="p-6">
         <div className="flex items-center text-sm text-text-secondary mb-3">
-          <time dateTime={date}>{date}</time>
+          <time dateTime={post.date}>{post.date}</time>
           <span className="mx-2">•</span>
-          <span>{readTime}</span>
+          <span>{post.readTime}</span>
         </div>
-        <h2 className="text-xl font-bold text-text-primary mb-3">
-          <Link href={`/blog/${slug}`} className="hover:text-brand transition-colors duration-200">
-            {title}
+        
+        <h3 className="text-xl font-bold text-text-primary mb-3">
+          <Link href={`/blog/${post.slug}`}>
+            {post.title}
           </Link>
-        </h2>
-        <p className="text-text-secondary mb-4">{excerpt}</p>
+        </h3>
+        
+        <p className="text-text-secondary mb-4">{post.excerpt}</p>
+        
         <Link 
-          href={`/blog/${slug}`} 
-          className="text-brand hover:text-brand-dark font-medium inline-flex items-center transition-colors duration-200"
+          href={`/blog/${post.slug}`} 
+          className="text-brand hover:text-brand-dark font-medium flex items-center transition-colors duration-200"
         >
           Read more
           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +48,7 @@ const PostCard = ({ title, excerpt, date, readTime, slug, image, imageAlt }: Pos
           </svg>
         </Link>
       </div>
-    </article>
+    </div>
   );
 };
 

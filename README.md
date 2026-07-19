@@ -1,104 +1,149 @@
-# NPC Protocol Website
+# NPC Protocol - Agency Delivery System
 
-A professional agency website for NPC Protocol - a digital services company offering web development, AI automation, marketing, lead generation, courses, and consulting services.
+NPC Protocol is a production-grade, reusable foundation for client websites. This system provides a complete component library and site scaffold that can be cloned and rebranded for every new client project.
 
-## Project Structure
+## Stack
+
+- **Next.js 14+** (App Router)
+- **TypeScript**
+- **Tailwind CSS** with strict token-based configuration
+- **MDX** for blog content (file-based, statically generated)
+- **Deploy target**: Vercel
+
+## Design Tokens
+
+The system uses a strict token-based configuration for all brand-swappable values:
+
+```css
+/* CSS Custom Properties */
+--brand: #3b82f6;
+--brand-dark: #1d4ed8;
+--accent: #10b981;
+--surface: #ffffff;
+--text-primary: #111827;
+--text-secondary: #6b7280;
+
+--font-heading: 'Inter', system-ui, sans-serif;
+--font-body: 'Inter', system-ui, sans-serif;
+
+/* Spacing Scale */
+--spacing-xs: 0.25rem;
+--spacing-sm: 0.5rem;
+--spacing-md: 1rem;
+--spacing-lg: 1.5rem;
+--spacing-xl: 2rem;
+--spacing-2xl: 3rem;
+--spacing-3xl: 4rem;
+
+/* Radius Scale */
+--radius-sm: 0.25rem;
+--radius-md: 0.5rem;
+--radius-lg: 1rem;
+--radius-full: 9999px;
+
+/* Shadow Scale */
+--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+--shadow-md: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+--shadow-lg: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+```
+
+## Folder Structure
 
 ```
-.
-├── frontend/                 # Static frontend files
-│   ├── index.html            # Home page
-│   ├── services.html         # Services page
-│   ├── courses.html          # Courses page
-│   ├── blog.html             # Blog list page
-│   ├── blog-post.html        # Individual blog post template
-│   ├── contact.html          # Contact page
-│   ├── css/                  # CSS files
-│   │   ├── reset.css         # CSS reset
-│   │   ├── variables.css     # CSS custom properties
-│   │   ├── typography.css    # Typography styles
-│   │   ├── components.css    # Component styles
-│   │   └── main.css          # Main stylesheet
-│   ├── js/                   # JavaScript files
-│   │   ├── main.js           # Shared JS (nav, scroll animations)
-│   │   ├── blog.js           # Blog post fetching and rendering
-│   │   └── contact.js        # Contact form handling
-│   └── assets/               # Images and icons
-├── backend/                  # Python + FastAPI backend
-│   ├── main.py               # Main application file
-│   ├── requirements.txt      # Python dependencies
-│   ├── .env.example          # Environment variables example
-│   ├── routers/              # API route handlers
-│   │   ├── contact.py        # Contact form endpoint
-│   │   ├── blog.py           # Blog CRUD endpoints
-│   │   └── newsletter.py     # Email capture endpoint
-│   ├── models/               # Pydantic models
-│   │   ├── contact.py        # Contact model
-│   │   └── blog.py           # Blog post model
-│   └── database/             # Database setup and operations
-│       └── db.py             # SQLite via SQLAlchemy
-├── netlify.toml              # Netlify deployment configuration
-├── _redirects                 # Netlify redirects for SPA routing
-└── README.md                 # This file
+/app
+  /page.tsx              → home
+  /about/page.tsx
+  /services/page.tsx
+  /contact/page.tsx
+  /blog/page.tsx          → blog index
+  /blog/[slug]/page.tsx    → post template, generateStaticParams from /content/blog
+
+/components
+  /ui        → Button, Badge, Card, Input, Container — primitives, brand-agnostic
+  /sections  → Hero, ServicesGrid, Testimonials, PricingTable, CTA, FAQ
+  /layout    → Nav, Footer, PageWrapper
+  /blog      → PostCard, PostLayout, BlogIndexGrid
+
+/content/blog  → sample .mdx posts
+/lib           → content loaders, utils
 ```
 
-## Local Development
+## Component Variants
 
-### Backend Setup
+All components are built with multiple structurally distinct variants to ensure client sites don't look identical:
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
+### Hero: 3 variants
+- **centered**: Centered content with brand-aligned styling
+- **split**: Content on one side, image/visual on the other
+- **video-bg**: Video background with overlay content
 
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### ServicesGrid: 2 variants
+- **card grid**: Traditional card-based layout
+- **alternating rows**: Alternating row colors for visual interest
 
-3. Set up environment variables by copying `.env.example`:
-   ```bash
-   cp .env.example .env
-   ```
+### Testimonials: 2 variants
+- **carousel**: Single testimonial with navigation dots
+- **grid**: Multiple testimonials in a responsive grid
 
-4. Run the FastAPI development server:
-   ```bash
-   uvicorn main:app --reload
-   ```
+## Quality Standards
 
-### Frontend
+The system adheres to strict quality requirements:
 
-The frontend is static HTML/CSS/JS, so no build step is needed. Simply open `index.html` in a browser to view the site locally.
+### Accessibility
+- WCAG 2.1 AA compliance
+- Proper semantic HTML
+- ARIA attributes where needed
+- Full keyboard navigation support
+- Sufficient color contrast using only token palette
 
-For local development with live reloading, you can use any local server. For example:
+### Responsive Design
+- Mobile-first approach
+- Tested at sm/md/lg/xl breakpoints
+- No layout shift
+- Optimized for Core Web Vitals
+
+### Code Quality
+- Every component renders correctly with placeholder/empty data
+- No hardcoded content in components
+- No arbitrary Tailwind values or inline styles
+- Type-safe TypeScript implementation
+
+## Client Configuration
+
+All client-specific content flows through a single configuration file:
+
+```typescript
+// /content/client-config.ts
+export const clientConfig = {
+  brand: {
+    name: "NPC Protocol",
+    primaryColor: "#3b82f6",
+    secondaryColor: "#1d4ed8",
+  },
+  // ... other configuration values
+};
+```
+
+## Usage
+
+To create a new client site:
+1. Clone this repository
+2. Replace the content of `/content/client-config.ts` with the client's brand values
+3. Customize any component props as needed for specific pages
+4. Deploy to Vercel
+
+## Development
+
+### Running Locally
 ```bash
-# Using Python's built-in HTTP server
-cd frontend
-python -m http.server 8000
+npm run dev
 ```
 
-## Deployment
+### Building for Production
+```bash
+npm run build
+```
 
-This project is configured for deployment on Netlify. The `netlify.toml` file handles routing and security headers.
-
-### Netlify Setup
-
-1. Push your code to a Git repository (GitHub, GitLab, etc.)
-2. Connect the repository to Netlify
-3. Set environment variables in Netlify dashboard:
-   - `DATABASE_URL`
-   - `CORS_ORIGINS`
-   - `CONTACT_EMAIL`
-
-### Deployment Steps
-
-1. Make sure all dependencies are installed
-2. Push code to your Git repository
-3. Netlify will automatically deploy when changes are pushed
-
-## Future Enhancements
-
-- Add Cloudflare for additional security and performance
-- Configure custom domain
-- Implement authentication system
-- Add more advanced analytics
+### Testing
+```bash
+npm run test

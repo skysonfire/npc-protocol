@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Card from '../ui/Card';
+import { clientConfig } from '../../content/client-config';
 
 interface Testimonial {
   name: string;
@@ -12,9 +13,9 @@ interface Testimonial {
 
 interface TestimonialsProps {
   variant?: 'carousel' | 'grid';
-  title: string;
-  description: string;
-  testimonials: Testimonial[];
+  title?: string;
+  description?: string;
+  testimonials?: Testimonial[];
 }
 
 const Testimonials = ({
@@ -23,20 +24,28 @@ const Testimonials = ({
   description,
   testimonials
 }: TestimonialsProps) => {
+  // Use client config values if no props are provided
+  const effectiveTitle = title || clientConfig.testimonials.title;
+  const effectiveDescription = description || clientConfig.testimonials.description;
+   const effectiveTestimonials = testimonials || clientConfig.testimonials.testimonials.map((testimonial: any) => ({
+     ...testimonial,
+     avatar: testimonial.avatar || undefined
+   }));
+
   const renderGridTestimonials = () => (
     <div className="py-16 md:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-            {title}
+            {effectiveTitle}
           </h2>
           <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-            {description}
+            {effectiveDescription}
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+          {effectiveTestimonials.map((testimonial: Testimonial, index: number) => (
             <Card key={index} shadow="md" rounded="lg">
               <div className="p-6">
                 <div className="flex items-center mb-4">
@@ -68,21 +77,21 @@ const Testimonials = ({
   const renderCarouselTestimonials = () => {
     // Simple implementation with a single testimonial for now
     // In a real implementation, this would use a carousel component
-    if (testimonials.length === 0) {
+    if (effectiveTestimonials.length === 0) {
       return null;
     }
     
-    const firstTestimonial = testimonials[0];
+    const firstTestimonial = effectiveTestimonials[0];
     
     return (
       <div className="py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              {title}
+              {effectiveTitle}
             </h2>
             <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-              {description}
+              {effectiveDescription}
             </p>
           </div>
           
@@ -111,7 +120,7 @@ const Testimonials = ({
             </Card>
             
             <div className="mt-8 flex justify-center space-x-2">
-              {testimonials.map((_, index) => (
+              {effectiveTestimonials.map((_testimony: Testimonial, index: number) => (
                 <div 
                   key={index} 
                   className={`w-3 h-3 rounded-full ${index === 0 ? 'bg-brand' : 'bg-gray-300'}`}

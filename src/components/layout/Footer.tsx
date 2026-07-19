@@ -18,11 +18,11 @@ const Footer = ({ className = '' }: FooterProps) => {
           </div>
           
           <div className="flex space-x-6">
-            {clientConfig.footer.links.map((link) => (
-              <Link 
+            {clientConfig.navLinks.map((link) => (
+              <Link
                 key={link.name}
                 href={link.href}
-                className="text-text-secondary hover:text-brand transition-colors duration-200"
+                className="text-text-secondary hover:text-brand transition-colors"
               >
                 {link.name}
               </Link>
