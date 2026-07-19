@@ -1,41 +1,40 @@
-"use client";
-
 import React from 'react';
+import ImagePlaceholder from '@/components/ui/ImagePlaceholder';
 
 interface PostLayoutProps {
   title: string;
-  date: string;
-  readTime: string;
-  content: React.ReactNode;
+  date?: string;
+  readTime?: string;
+  author?: string;
+  children: React.ReactNode;
 }
 
-const PostLayout = ({ title, date, readTime, content }: PostLayoutProps) => {
+const PostLayout = ({ title, date, readTime, author, children }: PostLayoutProps) => {
   return (
-    <div className="py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <article className="prose prose-lg md:prose-xl max-w-none">
-          <header className="mb-12 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">{title}</h1>
-            <div className="flex items-center justify-center text-text-secondary mb-6">
-              <time dateTime={date} className="mr-4">{date}</time>
-              <span>•</span>
-              <span className="ml-4">{readTime}</span>
-            </div>
-          </header>
-          
-          <div className="mb-12">
-            {/* Placeholder image */}
-            <div className="bg-gray-200 border-2 border-dashed rounded-lg w-full h-64 flex items-center justify-center text-gray-500 mb-8">
-              Blog Post Image
-            </div>
+    <article className="py-xxl md:py-32">
+      <div className="mx-auto max-w-3xl px-md sm:px-lg lg:px-xl">
+        <header className="mb-xl text-center">
+          <h1 className="font-heading text-3xl font-semibold text-text-primary md:text-4xl">
+            {title}
+          </h1>
+          <div className="mt-md flex items-center justify-center gap-sm text-sm text-text-secondary">
+            {date && <time dateTime={date}>{date}</time>}
+            {date && readTime && <span aria-hidden="true">&middot;</span>}
+            {readTime && <span>{readTime}</span>}
+            {(date || readTime) && author && <span aria-hidden="true">&middot;</span>}
+            {author && <span>{author}</span>}
           </div>
-          
-          <div className="text-text-primary leading-relaxed">
-            {content}
-          </div>
-        </article>
+        </header>
+
+        <div className="mb-xl">
+          <ImagePlaceholder alt={`Cover image for the blog post titled "${title}"`} />
+        </div>
+
+        <div className="prose max-w-none prose-headings:font-heading prose-headings:text-text-primary prose-p:text-text-secondary prose-a:text-brand prose-strong:text-text-primary">
+          {children}
+        </div>
       </div>
-    </div>
+    </article>
   );
 };
 

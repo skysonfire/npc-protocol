@@ -1,5 +1,3 @@
-"use client";
-
 import React, { HTMLAttributes } from 'react';
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
@@ -13,13 +11,13 @@ const Badge = ({
   ...props
 }: BadgeProps) => {
   const variantClasses = {
-    primary: "bg-brand text-surface",
-    secondary: "bg-surface text-text-primary border border-brand",
-    accent: "bg-accent text-surface"
+    primary: 'bg-brand text-surface',
+    secondary: 'bg-surface text-text-primary border border-brand',
+    accent: 'bg-accent text-surface',
   };
-  
-  const classes = `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${variantClasses[variant]} ${className}`;
-  
+
+  const classes = `inline-flex items-center px-sm py-xs rounded-full text-xs font-medium ${variantClasses[variant]} ${className}`;
+
   return (
     <span className={classes} {...props}>
       {children}

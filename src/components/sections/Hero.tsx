@@ -1,78 +1,95 @@
-"use client";
-
 import React from 'react';
-import Link from 'next/link';
-import { clientConfig } from '../../content/client-config';
+import Button from '@/components/ui/Button';
+import ImagePlaceholder from '@/components/ui/ImagePlaceholder';
 
 interface HeroProps {
   variant?: 'centered' | 'split' | 'video-bg';
-  title?: string;
+  title: string;
   subtitle?: string;
   ctaText?: string;
   ctaLink?: string;
+  /** Alt text for the image/video placeholder slot. Required for split/video-bg variants for a11y. */
+  imageAlt?: string;
 }
 
-const Hero = ({ variant = 'centered', title, subtitle, ctaText, ctaLink }: HeroProps) => {
-  // Use client config values if no props are provided
-  const effectiveTitle = title || clientConfig.hero.title;
-  const effectiveSubtitle = subtitle || clientConfig.hero.subtitle;
-  const effectiveCtaText = ctaText || clientConfig.hero.ctaText;
-  const effectiveCtaLink = ctaLink || "/";
-
-  const renderContent = () => {
-    switch (variant) {
-      case 'split':
-        return (
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-              <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">{effectiveTitle}</h1>
-              <p className="text-xl text-text-secondary mb-6">{effectiveSubtitle}</p>
-              <Link href={effectiveCtaLink} className="inline-block bg-brand text-white px-6 py-3 rounded-md font-medium hover:bg-brand-dark transition-colors duration-200">
-                {effectiveCtaText}
-              </Link>
-            </div>
-            <div className="md:w-1/2">
-              {/* Placeholder for image/video */}
-              <div className="bg-gray-200 border-2 border-dashed rounded-lg w-full h-64 flex items-center justify-center text-gray-500">
-                {variant === 'split' ? 'Split Image' : 'Video Background'}
+const Hero = ({
+  variant = 'centered',
+  title,
+  subtitle,
+  ctaText,
+  ctaLink = '/',
+  imageAlt = 'Placeholder hero image',
+}: HeroProps) => {
+  if (variant === 'split') {
+    return (
+      <section className="py-xxl md:py-32">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-xl px-md sm:px-lg lg:grid-cols-2 lg:px-xl">
+          <div>
+            <h1 className="font-heading text-4xl font-semibold text-text-primary md:text-5xl">
+              {title}
+            </h1>
+            {subtitle && (
+              <p className="mt-md max-w-xl text-lg text-text-secondary md:text-xl">{subtitle}</p>
+            )}
+            {ctaText && (
+              <div className="mt-lg">
+                <Button href={ctaLink} size="lg">
+                  {ctaText}
+                </Button>
               </div>
-            </div>
+            )}
           </div>
-        );
-      case 'video-bg':
-        return (
-          <div className="relative">
-            {/* Video background placeholder */}
-            <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
-              <div className="text-white text-xl">Video Background</div>
-            </div>
-            
-            <div className="relative z-10 text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{effectiveTitle}</h1>
-              <p className="text-xl text-gray-200 mb-6 max-w-2xl mx-auto">{effectiveSubtitle}</p>
-              <Link href={effectiveCtaLink} className="inline-block bg-brand text-white px-6 py-3 rounded-md font-medium hover:bg-brand-dark transition-colors duration-200">
-                {effectiveCtaText}
-              </Link>
-            </div>
+          <div>
+            <ImagePlaceholder alt={imageAlt} aspect="aspect-square" />
           </div>
-        );
-      default: // centered
-        return (
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">{effectiveTitle}</h1>
-            <p className="text-xl text-text-secondary mb-6 max-w-2xl mx-auto">{effectiveSubtitle}</p>
-            <Link href={effectiveCtaLink} className="inline-block bg-brand text-white px-6 py-3 rounded-md font-medium hover:bg-brand-dark transition-colors duration-200">
-              {effectiveCtaText}
-            </Link>
-          </div>
-        );
-    }
-  };
+        </div>
+      </section>
+    );
+  }
 
+  if (variant === 'video-bg') {
+    return (
+      <section className="relative overflow-hidden py-xxl md:py-32">
+        <div className="absolute inset-0 -z-10">
+          <div
+            role="img"
+            aria-label={imageAlt}
+            className="h-full w-full bg-brand-dark"
+          />
+          <div className="absolute inset-0 bg-brand-dark/60" aria-hidden="true" />
+        </div>
+        <div className="mx-auto max-w-4xl px-md text-center sm:px-lg lg:px-xl">
+          <h1 className="font-heading text-4xl font-semibold text-surface md:text-5xl">{title}</h1>
+          {subtitle && (
+            <p className="mx-auto mt-md max-w-2xl text-lg text-surface/85 md:text-xl">{subtitle}</p>
+          )}
+          {ctaText && (
+            <div className="mt-lg flex justify-center">
+              <Button href={ctaLink} size="lg" variant="secondary">
+                {ctaText}
+              </Button>
+            </div>
+          )}
+        </div>
+      </section>
+    );
+  }
+
+  // centered (default)
   return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {renderContent()}
+    <section className="py-xxl md:py-32">
+      <div className="mx-auto max-w-4xl px-md text-center sm:px-lg lg:px-xl">
+        <h1 className="font-heading text-4xl font-semibold text-text-primary md:text-5xl">{title}</h1>
+        {subtitle && (
+          <p className="mx-auto mt-md max-w-2xl text-lg text-text-secondary md:text-xl">{subtitle}</p>
+        )}
+        {ctaText && (
+          <div className="mt-lg flex justify-center">
+            <Button href={ctaLink} size="lg">
+              {ctaText}
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

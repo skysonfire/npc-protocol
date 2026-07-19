@@ -1,30 +1,45 @@
-"use client";
-
 import React from 'react';
+import type { Metadata } from 'next';
 import PageWrapper from '@/components/layout/PageWrapper';
 import Hero from '@/components/sections/Hero';
 import ServicesGrid from '@/components/sections/ServicesGrid';
+import PricingTable from '@/components/sections/PricingTable';
+import CTA from '@/components/sections/CTA';
+import { clientConfig } from '@/content/client-config';
 
-const ServicesPage = () => {
+export const metadata: Metadata = {
+  title: 'Services',
+  description: clientConfig.services.description,
+};
+
+export default function ServicesPage() {
   return (
     <PageWrapper>
-      <Hero 
-        variant="split" 
-        title="Our Services" 
-        subtitle="Subscription-based web design, AI automation, and marketing — built once, managed forever." 
+      <Hero
+        variant="split"
+        title={clientConfig.servicesHero.title}
+        subtitle={clientConfig.servicesHero.subtitle}
+        ctaText={clientConfig.servicesHero.ctaText}
+        ctaLink={clientConfig.servicesHero.ctaLink}
+        imageAlt={clientConfig.servicesHero.imageAlt}
       />
-      <ServicesGrid 
-        variant="card-grid" 
-        title="Our Services"
-        description="We provide everything you need to succeed in the digital landscape."
-        items={[
-           { title: "Website Design", description: "Custom, subscription-based websites built to convert.", icon: "💻" },
-           { title: "AI Automation", description: "Streamline your operations with intelligent workflows.", icon: "🤖" },
-           { title: "Marketing & Lead Gen", description: "Grow your pipeline with targeted campaigns.", icon: "📈" },
-         ]}
+      <ServicesGrid
+        variant="alternating-rows"
+        title={clientConfig.services.title}
+        description={clientConfig.services.description}
+        items={clientConfig.services.items}
+      />
+      <PricingTable
+        title={clientConfig.pricing.title}
+        description={clientConfig.pricing.description}
+        plans={clientConfig.pricing.plans}
+      />
+      <CTA
+        title={clientConfig.cta.title}
+        description={clientConfig.cta.description}
+        buttonText={clientConfig.cta.buttonText}
+        buttonLink={clientConfig.cta.buttonLink}
       />
     </PageWrapper>
   );
-};
-
-export default ServicesPage;
+}

@@ -1,27 +1,28 @@
-"use client";
-
 import React from 'react';
-import Link from 'next/link';
+import Button from '@/components/ui/Button';
 
 interface CTAProps {
   title: string;
-  description: string;
-  buttonText: string;
-  buttonLink: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
-const CTA = ({ title, description, buttonText, buttonLink }: CTAProps) => {
+const CTA = ({ title, description, buttonText, buttonLink = '/contact' }: CTAProps) => {
   return (
-    <div className="bg-surface rounded-xl p-8 md:p-12 text-center">
-      <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-4">{title}</h2>
-      <p className="text-text-secondary mb-6 max-w-2xl mx-auto">{description}</p>
-      <Link 
-        href={buttonLink}
-        className="inline-block bg-brand text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-dark transition-colors"
-      >
-        {buttonText}
-      </Link>
-    </div>
+    <section className="bg-brand py-xxl">
+      <div className="mx-auto max-w-3xl px-md text-center sm:px-lg lg:px-xl">
+        <h2 className="font-heading text-3xl font-semibold text-surface md:text-4xl">{title}</h2>
+        {description && <p className="mx-auto mt-md max-w-2xl text-lg text-surface/85">{description}</p>}
+        {buttonText && (
+          <div className="mt-lg flex justify-center">
+            <Button href={buttonLink} variant="secondary" size="lg">
+              {buttonText}
+            </Button>
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 

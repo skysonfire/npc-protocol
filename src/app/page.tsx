@@ -1,39 +1,46 @@
-"use client";
-
 import React from 'react';
+import type { Metadata } from 'next';
 import PageWrapper from '@/components/layout/PageWrapper';
 import Hero from '@/components/sections/Hero';
 import ServicesGrid from '@/components/sections/ServicesGrid';
 import Testimonials from '@/components/sections/Testimonials';
+import CTA from '@/components/sections/CTA';
+import { clientConfig } from '@/content/client-config';
 
-const HomePage = () => {
+export const metadata: Metadata = {
+  title: 'Home',
+  description: clientConfig.companyDescription,
+};
+
+export default function HomePage() {
   return (
     <PageWrapper>
-      <Hero 
-        variant="centered" 
-        title="Websites That Grow With Your Business" 
-        subtitle="Subscription-based web design, AI automation, and marketing — built once, managed forever." 
+      <Hero
+        variant="centered"
+        title={clientConfig.hero.title}
+        subtitle={clientConfig.hero.subtitle}
+        ctaText={clientConfig.hero.ctaText}
+        ctaLink={clientConfig.hero.ctaLink}
+        imageAlt={clientConfig.hero.imageAlt}
       />
-      <ServicesGrid 
-        variant="card-grid" 
-        title="Our Services"
-        description="We provide everything you need to succeed in the digital landscape."
-        items={[
-           { title: "Website Design", description: "Custom, subscription-based websites built to convert.", icon: "💻" },
-           { title: "AI Automation", description: "Streamline your operations with intelligent workflows.", icon: "🤖" },
-           { title: "Marketing & Lead Gen", description: "Grow your pipeline with targeted campaigns.", icon: "📈" },
-         ]}
+      <ServicesGrid
+        variant="card-grid"
+        title={clientConfig.services.title}
+        description={clientConfig.services.description}
+        items={clientConfig.services.items}
       />
-      <Testimonials 
-        variant="carousel" 
-        title="What Our Clients Say"
-        description="Hear from agencies who have transformed their delivery process."
-        testimonials={[
-          { name: "Placeholder Client", role: "Agency Director", content: "Great service, would recommend." },
-        ]}
+      <Testimonials
+        variant="carousel"
+        title={clientConfig.testimonials.title}
+        description={clientConfig.testimonials.description}
+        testimonials={clientConfig.testimonials.testimonials}
+      />
+      <CTA
+        title={clientConfig.cta.title}
+        description={clientConfig.cta.description}
+        buttonText={clientConfig.cta.buttonText}
+        buttonLink={clientConfig.cta.buttonLink}
       />
     </PageWrapper>
   );
-};
-
-export default HomePage;
+}

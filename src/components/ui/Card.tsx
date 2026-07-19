@@ -1,10 +1,8 @@
-"use client";
-
 import React, { HTMLAttributes } from 'react';
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   shadow?: 'sm' | 'md' | 'lg';
-  rounded?: 'sm' | 'md' | 'lg' | 'xl';
+  rounded?: 'sm' | 'md' | 'lg';
 }
 
 const Card = ({
@@ -15,20 +13,19 @@ const Card = ({
   ...props
 }: CardProps) => {
   const shadowClasses = {
-    sm: "shadow-sm",
-    md: "shadow-md",
-    lg: "shadow-lg"
+    sm: 'shadow-sm',
+    md: 'shadow-md',
+    lg: 'shadow-lg',
   };
-  
+
   const roundedClasses = {
-    sm: "rounded-sm",
-    md: "rounded-md",
-    lg: "rounded-lg",
-    xl: "rounded-xl"
+    sm: 'rounded-sm',
+    md: 'rounded-md',
+    lg: 'rounded-lg',
   };
-  
+
   const classes = `bg-surface ${shadowClasses[shadow]} ${roundedClasses[rounded]} ${className}`;
-  
+
   return (
     <div className={classes} {...props}>
       {children}

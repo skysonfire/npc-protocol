@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import Nav from './Nav';
 import Footer from './Footer';
@@ -11,9 +9,9 @@ interface PageWrapperProps {
 
 const PageWrapper = ({ children, className = '' }: PageWrapperProps) => {
   return (
-    <div className={`min-h-screen flex flex-col ${className}`}>
+    <div className={`flex min-h-screen flex-col ${className}`}>
       <Nav />
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         {children}
       </main>
       <Footer />

@@ -1,30 +1,24 @@
-"use client";
-
 import React, { HTMLAttributes } from 'react';
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
+  maxWidth?: 'md' | 'lg' | 'xl' | 'full';
 }
 
 const Container = ({
   children,
-  maxWidth = 'lg',
+  maxWidth = 'xl',
   className = '',
   ...props
 }: ContainerProps) => {
   const maxWidthClasses = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg',
-    xl: 'max-w-xl',
-    '2xl': 'max-w-2xl',
-    '3xl': 'max-w-3xl',
-    '4xl': 'max-w-4xl',
-    '5xl': 'max-w-5xl'
+    md: 'max-w-3xl',
+    lg: 'max-w-5xl',
+    xl: 'max-w-7xl',
+    full: 'max-w-full',
   };
-  
-  const classes = `mx-auto px-4 sm:px-6 lg:px-8 ${maxWidthClasses[maxWidth]} ${className}`;
-  
+
+  const classes = `mx-auto px-md sm:px-lg lg:px-xl ${maxWidthClasses[maxWidth]} ${className}`;
+
   return (
     <div className={classes} {...props}>
       {children}

@@ -1,8 +1,7 @@
-"use client";
-
 import React from 'react';
 import Link from 'next/link';
 import { clientConfig } from '@/content/client-config';
+import Container from '@/components/ui/Container';
 
 interface FooterProps {
   className?: string;
@@ -10,26 +9,27 @@ interface FooterProps {
 
 const Footer = ({ className = '' }: FooterProps) => {
   return (
-    <footer className={`py-8 ${className}`}>
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <p className="text-text-secondary">{clientConfig.footer.copyright}</p>
-          </div>
-          
-          <div className="flex space-x-6">
-            {clientConfig.navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-text-secondary hover:text-brand transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+    <footer className={`border-t border-text-secondary/10 py-xl ${className}`}>
+      <Container>
+        <div className="flex flex-col items-center justify-between gap-md md:flex-row">
+          <p className="text-sm text-text-secondary">{clientConfig.footer.copyright}</p>
+
+          <nav aria-label="Footer">
+            <ul className="flex flex-wrap justify-center gap-lg">
+              {clientConfig.navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-text-secondary transition-colors duration-200 hover:text-brand"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };

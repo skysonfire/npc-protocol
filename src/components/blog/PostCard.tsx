@@ -1,54 +1,46 @@
-"use client";
-
 import React from 'react';
 import Link from 'next/link';
-
-interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  readTime: string;
-  excerpt: string;
-}
+import { ArrowRight } from 'lucide-react';
+import ImagePlaceholder from '@/components/ui/ImagePlaceholder';
+import type { BlogPostMeta } from '@/lib/content';
 
 interface PostCardProps {
-  post: BlogPost;
+  post: BlogPostMeta;
 }
 
 const PostCard = ({ post }: PostCardProps) => {
   return (
-    <div className="bg-surface rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-      {/* Placeholder image */}
-      <div className="bg-gray-200 border-2 border-dashed rounded-t-lg w-full h-48 flex items-center justify-center text-gray-500">
-        Blog Image
-      </div>
-      
-      <div className="p-6">
-        <div className="flex items-center text-sm text-text-secondary mb-3">
-          <time dateTime={post.date}>{post.date}</time>
-          <span className="mx-2">•</span>
-          <span>{post.readTime}</span>
+    <article className="overflow-hidden rounded-lg bg-surface shadow-sm transition-shadow duration-300 hover:shadow-md">
+      <ImagePlaceholder
+        alt={`Cover image for the blog post titled "${post.title}"`}
+        rounded="sm"
+        className="rounded-b-none"
+      />
+
+      <div className="p-lg">
+        <div className="flex items-center gap-sm text-sm text-text-secondary">
+          {post.date && <time dateTime={post.date}>{post.date}</time>}
+          {post.date && post.readTime && <span aria-hidden="true">&middot;</span>}
+          {post.readTime && <span>{post.readTime}</span>}
         </div>
-        
-        <h3 className="text-xl font-bold text-text-primary mb-3">
-          <Link href={`/blog/${post.slug}`}>
+
+        <h3 className="mt-sm font-heading text-xl font-semibold text-text-primary">
+          <Link href={`/blog/${post.slug}`} className="hover:text-brand">
             {post.title}
           </Link>
         </h3>
-        
-        <p className="text-text-secondary mb-4">{post.excerpt}</p>
-        
-        <Link 
-          href={`/blog/${post.slug}`} 
-          className="text-brand hover:text-brand-dark font-medium flex items-center transition-colors duration-200"
+
+        {post.excerpt && <p className="mt-sm text-text-secondary">{post.excerpt}</p>}
+
+        <Link
+          href={`/blog/${post.slug}`}
+          className="mt-md inline-flex items-center gap-sm font-medium text-brand transition-colors duration-200 hover:text-brand-dark"
         >
           Read more
-          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
+          <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.5} />
         </Link>
       </div>
-    </div>
+    </article>
   );
 };
 

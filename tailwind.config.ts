@@ -13,6 +13,7 @@ const config: Config = {
         'brand-dark': 'var(--brand-dark)',
         accent: 'var(--accent)',
         surface: 'var(--surface)',
+        'surface-alt': 'var(--surface-alt)',
         'text-primary': 'var(--text-primary)',
         'text-secondary': 'var(--text-secondary)',
       },

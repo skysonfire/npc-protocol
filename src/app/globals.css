@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand colors */
-  --brand: #3b82f6; /* blue-500 */
-  --brand-dark: #1e40af; /* blue-700 */
-  --accent: #10b981; /* emerald-500 */
-  --surface: #ffffff; /* white */
-  --text-primary: #1f2937; /* gray-800 */
-  --text-secondary: #6b7280; /* gray-500 */
-  
+  /* Brand colors - deep ink-navy + warm copper accent system */
+  --brand: #16233d; /* deep ink-navy */
+  --brand-dark: #0a1220; /* near-black slate */
+  --accent: #c17a3f; /* warm amber/copper */
+  --surface: #fbfaf8; /* clean off-white */
+  --surface-alt: #f1ede6; /* supporting surface for depth/section separation */
+  --text-primary: #1c2027; /* charcoal */
+  --text-secondary: #5d6470; /* graphite */
+
   /* Fonts */
-  --font-heading: "Inter", sans-serif;
-  --font-body: "Inter", sans-serif;
-  
+  --font-heading: var(--font-source-serif-4), Georgia, serif;
+  --font-body: var(--font-work-sans), Helvetica, Arial, sans-serif;
+
   /* Spacing scale */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -20,28 +21,36 @@
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-xxl: 3rem;
-  
+
   /* Radius scale */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
   --radius-full: 9999px;
-  
-  /* Shadow scale */
-  --shadows-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadows-md: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadows-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* Shadow scale - tinted toward brand ink, never pure black */
+  --shadows-sm: 0 1px 2px 0 rgba(22, 35, 61, 0.06);
+  --shadows-md: 0 4px 10px -2px rgba(22, 35, 61, 0.10), 0 2px 4px -2px rgba(22, 35, 61, 0.06);
+  --shadows-lg: 0 12px 24px -6px rgba(22, 35, 61, 0.14), 0 4px 8px -2px rgba(22, 35, 61, 0.08);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--text-primary);
   background-color: var(--surface);
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
 
 /* Ensure all components use the token system */
@@ -52,4 +61,18 @@ a {
 
 a:hover {
   color: var(--brand-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

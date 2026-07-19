@@ -1,6 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
+import { CheckCircle2 } from 'lucide-react';
+import { Input, Textarea } from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
+import { clientConfig } from '@/content/client-config';
 
 interface ContactFormData {
   name: string;
@@ -8,29 +12,26 @@ interface ContactFormData {
   message: string;
 }
 
+const initialFormData: ContactFormData = { name: '', email: '', message: '' };
+
 const ContactForm = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       setSubmitSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData(initialFormData);
     } catch (error) {
       console.error('Form submission error:', error);
     } finally {
@@ -38,73 +39,61 @@ const ContactForm = () => {
     }
   };
 
+  if (submitSuccess) {
+    return (
+      <div
+        role="status"
+        className="mx-auto flex max-w-2xl flex-col items-center gap-sm rounded-lg border border-brand/20 bg-surface-alt p-xl text-center"
+      >
+        <CheckCircle2 aria-hidden="true" className="h-10 w-10 text-brand" strokeWidth={1.5} />
+        <h3 className="font-heading text-xl font-semibold text-text-primary">
+          {clientConfig.contact.formSuccessTitle}
+        </h3>
+        <p className="text-text-secondary">{clientConfig.contact.formSuccessBody}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-2xl mx-auto">
-      {submitSuccess ? (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-          <h3 className="text-lg font-medium text-green-800 mb-2">Message Sent!</h3>
-          <p className="text-green-700">Thank you for contacting us. We'll get back to you soon.</p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent"
-              placeholder="Your name"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent"
-              placeholder="your.email@example.com"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent"
-              placeholder="Your message here..."
-            />
-          </div>
-          
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-brand text-white py-3 px-6 rounded-lg font-medium hover:bg-brand-dark transition-colors disabled:opacity-50"
-          >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </button>
-        </form>
-      )}
-    </div>
+    <form onSubmit={handleSubmit} className="mx-auto max-w-2xl space-y-lg" noValidate>
+      <Input
+        label="Name"
+        id="name"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+        autoComplete="name"
+        placeholder="Your name"
+      />
+
+      <Input
+        label="Email"
+        type="email"
+        id="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+        autoComplete="email"
+        placeholder="your.email@example.com"
+      />
+
+      <Textarea
+        label="Message"
+        id="message"
+        name="message"
+        value={formData.message}
+        onChange={handleChange}
+        required
+        rows={5}
+        placeholder="Your message here..."
+      />
+
+      <Button type="submit" disabled={isSubmitting} fullWidth size="lg">
+        {isSubmitting ? 'Sending…' : 'Send Message'}
+      </Button>
+    </form>
   );
 };
 

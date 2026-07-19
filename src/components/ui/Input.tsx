@@ -1,6 +1,4 @@
-"use client";
-
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -8,28 +6,73 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   fullWidth?: boolean;
 }
 
-const Input = ({
+export const Input = ({
   label,
   error,
-  fullWidth = false,
+  fullWidth = true,
   className = '',
+  id,
   ...props
 }: InputProps) => {
-  const inputClasses = `block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200 ${fullWidth ? 'w-full' : ''} ${className}`;
-  
+  const inputId = id ?? props.name;
+  const errorId = error ? `${inputId}-error` : undefined;
+
   return (
-    <div className="mb-4">
+    <div className={fullWidth ? 'w-full' : ''}>
       {label && (
-        <label className="block text-sm font-medium text-text-primary mb-1">
+        <label htmlFor={inputId} className="mb-xs block text-sm font-medium text-text-primary">
           {label}
         </label>
       )}
       <input
-        className={inputClasses}
+        id={inputId}
+        className={`block w-full rounded-md border border-text-secondary/30 bg-surface px-md py-sm text-text-primary shadow-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${className}`}
+        aria-invalid={!!error}
+        aria-describedby={errorId}
         {...props}
       />
       {error && (
-        <p className="mt-1 text-sm text-red-600">
+        <p id={errorId} role="alert" className="mt-xs text-sm text-accent">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+};
+
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label?: string;
+  error?: string;
+  fullWidth?: boolean;
+}
+
+export const Textarea = ({
+  label,
+  error,
+  fullWidth = true,
+  className = '',
+  id,
+  ...props
+}: TextareaProps) => {
+  const inputId = id ?? props.name;
+  const errorId = error ? `${inputId}-error` : undefined;
+
+  return (
+    <div className={fullWidth ? 'w-full' : ''}>
+      {label && (
+        <label htmlFor={inputId} className="mb-xs block text-sm font-medium text-text-primary">
+          {label}
+        </label>
+      )}
+      <textarea
+        id={inputId}
+        className={`block w-full rounded-md border border-text-secondary/30 bg-surface px-md py-sm text-text-primary shadow-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${className}`}
+        aria-invalid={!!error}
+        aria-describedby={errorId}
+        {...props}
+      />
+      {error && (
+        <p id={errorId} role="alert" className="mt-xs text-sm text-accent">
           {error}
         </p>
       )}

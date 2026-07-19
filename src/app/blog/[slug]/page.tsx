@@ -1,45 +1,41 @@
-"use client";
-
 import React from 'react';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 import PageWrapper from '@/components/layout/PageWrapper';
 import PostLayout from '@/components/blog/PostLayout';
+import { getAllPostSlugs, getPostBySlug } from '@/lib/content';
 
-// This would be replaced with actual content loading in a real implementation
-const samplePosts = [
-  {
-    slug: "first-post",
-    title: "First Blog Post",
-    date: "2023-01-01",
-    readTime: "5 min read",
-    content: "This is the content of the first blog post.",
-  },
-  {
-    slug: "second-post",
-    title: "Second Blog Post",
-    date: "2023-01-02",
-    readTime: "3 min read",
-    content: "This is the content of the second blog post.",
-  }
-];
+interface BlogPostPageProps {
+  params: { slug: string };
+}
 
-const BlogPostPage = ({ params }: { params: { slug: string } }) => {
-  const post = samplePosts.find(p => p.slug === params.slug);
-  
+export function generateStaticParams() {
+  return getAllPostSlugs().map((slug) => ({ slug }));
+}
+
+export function generateMetadata({ params }: BlogPostPageProps): Metadata {
+  const post = getPostBySlug(params.slug);
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+  };
+}
+
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const post = getPostBySlug(params.slug);
+
   if (!post) {
-    return notFound();
+    notFound();
   }
 
   return (
     <PageWrapper>
-      <PostLayout 
-        title={post.title}
-        date={post.date}
-        readTime={post.readTime}
-        content={<p>{post.content}</p>}
-      />
+      <PostLayout title={post.title} date={post.date} readTime={post.readTime} author={post.author}>
+        <MDXRemote source={post.content} />
+      </PostLayout>
     </PageWrapper>
   );
-};
-
-export default BlogPostPage;
+}

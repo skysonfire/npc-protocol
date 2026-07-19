@@ -1,51 +1,47 @@
 # NPC Protocol - Agency Delivery System
 
-NPC Protocol is a production-grade, reusable foundation for client websites. This system provides a complete component library and site scaffold that can be cloned and rebranded for every new client project.
+NPC Protocol is a reusable, production-grade base system for building client websites. This system provides a foundation that can be cloned and rebranded for each new client project.
 
 ## Stack
-
-- **Next.js 14+** (App Router)
-- **TypeScript**
-- **Tailwind CSS** with strict token-based configuration
-- **MDX** for blog content (file-based, statically generated)
-- **Deploy target**: Vercel
+- Next.js 14+ (App Router), TypeScript
+- Tailwind CSS with a strict token-based config — no arbitrary values allowed anywhere
+- MDX for blog content (file-based, statically generated)
+- Deploy target: Vercel
 
 ## Design Tokens
 
-The system uses a strict token-based configuration for all brand-swappable values:
+The system uses a comprehensive token-based design system with the following tokens:
 
-```css
-/* CSS Custom Properties */
---brand: #3b82f6;
---brand-dark: #1d4ed8;
---accent: #10b981;
---surface: #ffffff;
---text-primary: #111827;
---text-secondary: #6b7280;
+### Color Palette
+- `--brand` - Primary brand color
+- `--brand-dark` - Darker variant of brand color
+- `--accent` - Accent color for highlights
+- `--surface` - Background surface color
+- `--text-primary` - Primary text color
+- `--text-secondary` - Secondary text color
 
---font-heading: 'Inter', system-ui, sans-serif;
---font-body: 'Inter', system-ui, sans-serif;
+### Typography
+- `--font-heading` - Font family for headings
+- `--font-body` - Font family for body text
 
-/* Spacing Scale */
---spacing-xs: 0.25rem;
---spacing-sm: 0.5rem;
---spacing-md: 1rem;
---spacing-lg: 1.5rem;
---spacing-xl: 2rem;
---spacing-2xl: 3rem;
---spacing-3xl: 4rem;
+### Spacing Scale
+- `--spacing-xs` - Extra small spacing
+- `--spacing-sm` - Small spacing
+- `--spacing-md` - Medium spacing
+- `--spacing-lg` - Large spacing
+- `--spacing-xl` - Extra large spacing
+- `--spacing-xxl` - Extra extra large spacing
 
-/* Radius Scale */
---radius-sm: 0.25rem;
---radius-md: 0.5rem;
---radius-lg: 1rem;
---radius-full: 9999px;
+### Radius Scale
+- `--radius-sm` - Small border radius
+- `--radius-md` - Medium border radius
+- `--radius-lg` - Large border radius
+- `--radius-full` - Full border radius (pill shape)
 
-/* Shadow Scale */
---shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
---shadow-md: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
---shadow-lg: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-```
+### Shadow Scale
+- `--shadows-sm` - Small shadow
+- `--shadows-md` - Medium shadow
+- `--shadows-lg` - Large shadow
 
 ## Folder Structure
 
@@ -66,84 +62,47 @@ The system uses a strict token-based configuration for all brand-swappable value
 
 /content/blog  → sample .mdx posts
 /lib           → content loaders, utils
+
+/content/client-config.ts  → client configuration file (swapped per client)
 ```
 
 ## Component Variants
 
-All components are built with multiple structurally distinct variants to ensure client sites don't look identical:
+All components are built with multiple structurally distinct variants to ensure no two clients in the same niche look identical:
 
 ### Hero: 3 variants
-- **centered**: Centered content with brand-aligned styling
-- **split**: Content on one side, image/visual on the other
-- **video-bg**: Video background with overlay content
+- Centered
+- Split (image one side)
+- Video-bg
 
 ### ServicesGrid: 2 variants
-- **card grid**: Traditional card-based layout
-- **alternating rows**: Alternating row colors for visual interest
+- Card grid
+- Alternating rows
 
 ### Testimonials: 2 variants
-- **carousel**: Single testimonial with navigation dots
-- **grid**: Multiple testimonials in a responsive grid
+- Carousel
+- Grid
 
 ## Quality Standards
 
-The system adheres to strict quality requirements:
+The system follows these quality standards:
+- WCAG 2.1 AA accessibility: proper semantic HTML, ARIA where needed, full keyboard navigation, sufficient color contrast using only the token palette
+- Responsive by default: mobile-first, test breakpoints at sm/md/lg/xl
+- No layout shift, no unused CSS, optimize for Core Web Vitals
+- Every component must render correctly with placeholder/empty data (no crashes on missing optional fields)
 
-### Accessibility
-- WCAG 2.1 AA compliance
-- Proper semantic HTML
-- ARIA attributes where needed
-- Full keyboard navigation support
-- Sufficient color contrast using only token palette
+## Images
 
-### Responsive Design
-- Mobile-first approach
-- Tested at sm/md/lg/xl breakpoints
-- No layout shift
-- Optimized for Core Web Vitals
-
-### Code Quality
-- Every component renders correctly with placeholder/empty data
-- No hardcoded content in components
-- No arbitrary Tailwind values or inline styles
-- Type-safe TypeScript implementation
-
-## Client Configuration
-
-All client-specific content flows through a single configuration file:
-
-```typescript
-// /content/client-config.ts
-export const clientConfig = {
-  brand: {
-    name: "NPC Protocol",
-    primaryColor: "#3b82f6",
-    secondaryColor: "#1d4ed8",
-  },
-  // ... other configuration values
-};
-```
+Placeholder image slots are included in Hero, Testimonials, and blog post templates with descriptive alt text.
 
 ## Usage
 
 To create a new client site:
 1. Clone this repository
-2. Replace the content of `/content/client-config.ts` with the client's brand values
-3. Customize any component props as needed for specific pages
+2. Replace the `client-config.ts` file with client-specific configuration
+3. Customize content as needed
 4. Deploy to Vercel
 
-## Development
+## Client Configuration
 
-### Running Locally
-```bash
-npm run dev
-```
-
-### Building for Production
-```bash
-npm run build
-```
-
-### Testing
-```bash
-npm run test
+The client configuration (`/content/client-config.ts`) contains all client-specific content and settings that will be used throughout the system.

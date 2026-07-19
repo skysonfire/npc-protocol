@@ -1,14 +1,14 @@
-"use client";
-
 import React from 'react';
-import Card from '../ui/Card';
-import Badge from '../ui/Badge';
-import { clientConfig } from '../../content/client-config';
+import * as Icons from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
+import Card from '@/components/ui/Card';
+import ImagePlaceholder from '@/components/ui/ImagePlaceholder';
 
-interface ServiceItem {
+export interface ServiceItem {
   title: string;
   description: string;
-  icon: string;
+  /** kebab-case lucide-react icon name, e.g. "layout-template", "bot", "line-chart" */
+  icon?: string;
 }
 
 interface ServicesGridProps {
@@ -18,97 +18,107 @@ interface ServicesGridProps {
   items?: ServiceItem[];
 }
 
+function kebabToPascal(str: string) {
+  return str
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('');
+}
+
+function ServiceIcon({ name }: { name?: string }) {
+  if (!name) {
+    return <HelpCircle aria-hidden="true" className="h-8 w-8 text-accent" strokeWidth={1.5} />;
+  }
+  const componentName = kebabToPascal(name);
+  const IconComponent = (Icons as unknown as Record<string, React.ComponentType<{ className?: string; strokeWidth?: number; 'aria-hidden'?: boolean }>>)[
+    componentName
+  ];
+
+  if (!IconComponent) {
+    return <HelpCircle aria-hidden="true" className="h-8 w-8 text-accent" strokeWidth={1.5} />;
+  }
+
+  return <IconComponent aria-hidden className="h-8 w-8 text-accent" strokeWidth={1.5} />;
+}
+
 const ServicesGrid = ({
   variant = 'card-grid',
   title,
   description,
-  items
+  items = [],
 }: ServicesGridProps) => {
-  // Use client config values if no props are provided
-  const effectiveTitle = title || clientConfig.services.title;
-  const effectiveDescription = description || clientConfig.services.description;
-  const effectiveItems = items || clientConfig.services.items;
-  
-  const renderCardGrid = () => (
-    <div className="py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-            {effectiveTitle}
-          </h2>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-            {effectiveDescription}
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {effectiveItems.map((item: ServiceItem, index: number) => (
-            <Card key={index} shadow="md" rounded="lg">
-              <div className="p-6">
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold text-text-primary mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-text-secondary">
-                  {item.description}
-                </p>
+  if (items.length === 0) return null;
+
+  if (variant === 'alternating-rows') {
+    return (
+      <section className="py-xxl md:py-32">
+        <div className="mx-auto max-w-7xl px-md sm:px-lg lg:px-xl">
+          {(title || description) && (
+            <div className="mx-auto mb-xxl max-w-2xl text-center">
+              {title && (
+                <h2 className="font-heading text-3xl font-semibold text-text-primary md:text-4xl">
+                  {title}
+                </h2>
+              )}
+              {description && <p className="mt-md text-lg text-text-secondary">{description}</p>}
+            </div>
+          )}
+
+          <div className="flex flex-col gap-xxl">
+            {items.map((item, index) => (
+              <div
+                key={item.title}
+                className={`flex flex-col items-center gap-xl lg:flex-row ${
+                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                }`}
+              >
+                <div className="w-full lg:w-1/2">
+                  <ImagePlaceholder alt={`Illustration representing the ${item.title} service`} />
+                </div>
+                <div className="w-full lg:w-1/2">
+                  <ServiceIcon name={item.icon} />
+                  <h3 className="mt-md font-heading text-2xl font-semibold text-text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="mt-sm text-text-secondary">{item.description}</p>
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // card-grid (default)
+  return (
+    <section className="py-xxl md:py-32">
+      <div className="mx-auto max-w-7xl px-md sm:px-lg lg:px-xl">
+        {(title || description) && (
+          <div className="mx-auto mb-xxl max-w-2xl text-center">
+            {title && (
+              <h2 className="font-heading text-3xl font-semibold text-text-primary md:text-4xl">
+                {title}
+              </h2>
+            )}
+            {description && <p className="mt-md text-lg text-text-secondary">{description}</p>}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 gap-lg md:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => (
+            <Card key={item.title} shadow="sm" rounded="lg" className="p-lg">
+              <ServiceIcon name={item.icon} />
+              <h3 className="mt-md font-heading text-xl font-semibold text-text-primary">
+                {item.title}
+              </h3>
+              <p className="mt-sm text-text-secondary">{item.description}</p>
             </Card>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
-
-  const renderAlternatingRows = () => (
-    <div className="py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-            {effectiveTitle}
-          </h2>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-            {effectiveDescription}
-          </p>
-        </div>
-        
-        <div className="space-y-12">
-          {effectiveItems.map((item, index) => (
-            <div 
-              key={index} 
-              className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8`}
-            >
-              <div className="md:w-1/2">
-                <Card shadow="md" rounded="lg">
-                  <div className="p-6">
-                    <div className="text-4xl mb-4">{item.icon}</div>
-                    <h3 className="text-xl font-bold text-text-primary mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-text-secondary">
-                      {item.description}
-                    </p>
-                  </div>
-                </Card>
-              </div>
-              <div className="md:w-1/2">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center text-gray-500">
-                  Placeholder Image
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  switch (variant) {
-    case 'alternating-rows':
-      return renderAlternatingRows();
-    default:
-      return renderCardGrid();
-  }
 };
 
 export default ServicesGrid;
