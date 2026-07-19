@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - NPC Protocol</title>
+    <meta name="description" content="Let's build something. Tell us what you're working on. We respond within 24 hours with an honest assessment.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">NPC PROTOCOL</a>
+            <ul class="nav-links">
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li><a href="contact.html" class="btn btn-primary nav-btn">Start a Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero hero-contact">
+        <div class="container hero-content">
+            <h1 class="hero-h1">Let's build something.</h1>
+            <p class="hero-subheading">
+                Tell us what you're working on. We respond within 24 hours with an honest assessment.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <!-- Left Column - Contact Info -->
+                <div class="contact-info">
+                    <h2 class="section-title h2">Get in Touch</h2>
+                    <p class="mb-8">
+                        We're currently accepting projects for Q3 2025. 
+                        Our team responds within 24 hours to all inquiries.
+                    </p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <h3 class="contact-title">Email</h3>
+                            <p class="contact-value">hello@npcprotocol.com</p>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <h3 class="contact-title">Response Time</h3>
+                            <p class="contact-value">Within 24 hours</p>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <h3 class="contact-title">Availability</h3>
+                            <p class="contact-value">Accepting projects for Q3 2025</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Accordion -->
+                    <div class="faq-accordion">
+                        <h3 class="section-title h3 mb-6">Frequently Asked Questions</h3>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                How does pricing work?
+                                <span class="faq-toggle">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>We work in fixed-scope engagements. You know the cost before we start. No hourly billing, no scope creep, no surprise invoices. 50% upfront, 50% on delivery.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                How long do projects take?
+                                <span class="faq-toggle">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Depends on scope, but typically 3-10 weeks. We'll give you a timeline during our initial consultation.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                Do you work with startups?
+                                <span class="faq-toggle">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes, if budget fits. We recommend starting with a System Audit to understand what's most valuable for your business.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                What happens after launch?
+                                <span class="faq-toggle">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>All projects include 30 days of support. Retainers are available for ongoing work.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                Can I see examples of your work?
+                                <span class="faq-toggle">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Case studies coming Q3 2025. In the meantime, we can share some general examples of our approach.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Contact Form -->
+                <div class="contact-form-container">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service" name="service">
+                                <option value="">Select a service</option>
+                                <option value="web">Web Systems</option>
+                                <option value="automation">AI Automation</option>
+                                <option value="marketing">Marketing & Lead Gen</option>
+                                <option value="courses">Courses</option>
+                                <option value="consulting">Consulting</option>
+                                <option value="not-sure">Not sure yet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="budget">Budget Range</label>
+                            <select id="budget" name="budget">
+                                <option value="">Select budget range</option>
+                                <option value="under-5k">Under $5k</option>
+                                <option value="5k-15k">$5k-$15k</option>
+                                <option value="15k-50k">$15k-$50k</option>
+                                <option value="50k-plus">$50k+</option>
+                                <option value="not-sure">Not sure</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Project Description</label>
+                            <textarea id="message" name="message" rows="6" required minlength="50"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="referral">How did you hear about us?</label>
+                            <select id="referral" name="referral_source">
+                                <option value="">Select an option</option>
+                                <option value="google">Google</option>
+                                <option value="social-media">Social media</option>
+                                <option value="referral">Referral</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full">
+                            <span class="btn-text">Send Message</span>
+                        </button>
+                    </form>
+
+                    <div id="form-message"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <a href="index.html" class="footer-logo">NPC PROTOCOL</a>
+                    <p class="footer-tagline">
+                        The operating system for ambitious businesses.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">GitHub</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="services.html#web">Web Development</a></li>
+                        <li><a href="services.html#automation">AI & Automation</a></li>
+                        <li><a href="services.html#marketing">Marketing Systems</a></li>
+                        <li><a href="services.html#consulting">Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>hello@npcprotocol.com</li>
+                        <li>Accepting projects for Q3 2025</li>
+                        <li>Response time: Within 24 hours</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 NPC Protocol. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+---
+title: "Advanced Patterns in NPC Protocol"
+date: "2026-02-20"
+author: "NPC Protocol Team"
+tags: ["patterns", "advanced"]
+---
+
+# Advanced Patterns in NPC Protocol
+
+Building on the fundamentals of NPC Protocol, let's explore some advanced patterns that make our system truly powerful.
+
+## Component Variants System
+
+One of the key strengths of NPC Protocol is its variant system. Each component can have multiple structural variants:
+
+- **Hero**: 3 variants — centered, split (image one side), video-bg
+- **ServicesGrid**: 2 variants — card grid, alternating rows  
+- **Testimonials**: 2 variants — carousel, grid
+
+This ensures that clients in the same niche don't look identical while maintaining a consistent foundation.
+
+## Design Token Implementation
+
+Our design system is built entirely on tokens:
+
+- Color palette: `--brand`, `--brand-dark`, `--accent`, `--surface`, `--text-primary`, `--text-secondary`
+- Typography: `--font-heading`, `--font-body`
+- Spacing: `--spacing-xs`, `--spacing-sm`, `--spacing-md`, `--spacing-lg`, `--spacing-xl`
+- Radius: `--radius-sm`, `--radius-md`, `--radius-lg`
+- Shadows: `--shadow-sm`, `--shadow-md`, `--shadow-lg`
+
+This approach ensures complete brand consistency and easy theme switching.
+
+## Accessibility Compliance
+
+NPC Protocol follows WCAG 2.1 AA standards:
+
+- Proper semantic HTML structure
+- ARIA attributes where needed
+- Full keyboard navigation support
+- Sufficient color contrast using only token palette
+- Responsive design by default
+
+## Responsive Design
+
+All components are mobile-first with breakpoints at sm/md/lg/xl. This ensures optimal performance across all devices while maintaining consistent user experience.
+
+## Performance Optimization
+
+- No layout shift
+- No unused CSS
+- Optimized for Core Web Vitals
+- Every component renders correctly with placeholder/empty data

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scotts Roofing - The Best Roofing Experts in Scotland</title>
+    <meta name="description" content="Scotts Roofing - Professional roofing services by the best roofers in Scotland. Expert craftsmanship, quality materials, and reliable service for residential and commercial properties.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        /* Custom styles for roofing page */
+        .roofing-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .roofing-hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .roofing-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .roofing-hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .roofing-badge {
+            background-color: #c02d28;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .roofing-section {
+            padding: 5rem 0;
+        }
+        
+        .roofing-section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #1a365d;
+        }
+        
+        .roofing-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #c02d28;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        .roofing-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a365d;
+        }
+        
+        .roofing-testimonials {
+            background-color: #f7fafc;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: """;
+            font-size: 4rem;
+            position: absolute;
+            left: -20px;
+            top: -30px;
+            color: #c02d28;
+            opacity: 0.3;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #c02d28;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 0.25rem;
+        }
+        
+        .author-info p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .roofing-cta {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .roofing-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-roofing {
+            background-color: #c02d28;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .btn-roofing:hover {
+            background-color: #9b2c2c;
+            transform: scale(1.05);
+        }
+        
+        .scottish-badge {
+            background: linear-gradient(135deg, #c02d28 0%, #718096 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .roofing-team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .member-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #718096;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .member-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-role {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">NPC PROTOCOL</a>
+            <ul class="nav-links">
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="contact.html" class="btn btn-primary nav-btn">Start a Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="roofing-hero">
+        <div class="container roofing-hero-content">
+            <div class="roofing-badge">Scottish Roofing Experts</div>
+            <h1>Scotts Roofing - The Best Roofers in Scotland</h1>
+            <p>Professional roofing services with over 30 years of experience. We provide expert craftsmanship, quality materials, and reliable service for residential and commercial properties.</p>
+            <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="roofing-section">
+        <div class="container">
+            <h2 class="roofing-section-title">Why Scotts Roofing?</h2>
+            <div class="roofing-stats">
+                <div class="stat-card">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Years of Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Roofs Repaired/Installed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Customer Satisfaction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Emergency Service</div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem;">
+                Scottish roofers are renowned worldwide for their expertise in weatherproofing and roofing solutions. Our team brings the best of Scottish craftsmanship to every project, ensuring durability, quality, and attention to detail.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="roofing-section">
+        <div class="container">
+            <h2 class="roofing-section-title">Our Roofing Services</h2>
+            <div class="roofing-services">
+                <div class="service-card">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1593696140826-c58bed479fcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="service-content">
+                        <h3 class="service-title">Roof Installation</h3>
+                        <p>Professional roof installation with high-quality materials and expert craftsmanship. We offer a wide range of roofing options to suit your property's needs.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="service-content">
+                        <h3 class="service-title">Roof Repairs</h3>
+                        <p>Expert roof repair services to fix leaks, damaged shingles, and structural issues. We provide prompt and reliable solutions to keep your property protected.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="service-content">
+                        <h3 class="service-title">Roof Maintenance</h3>
+                        <p>Regular maintenance services to extend the life of your roof. We inspect, clean, and maintain your roofing system to prevent problems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scottish Expertise Section -->
+    <section class="roofing-section" style="background-color: #f7fafc;">
+        <div class="container">
+            <h2 class="roofing-section-title">Scottish Roofing Expertise</h2>
+            <div class="scottish-badge">The Best Roofers in Scotland</div>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem;">
+                Scottish roofers are globally recognized for their exceptional skills in weatherproofing and construction. With Scotland's harsh weather conditions, our roofing experts have developed the expertise to handle any climate challenge. Our team brings traditional Scottish craftsmanship combined with modern techniques to ensure your roof is built to last.
+            </p>
+            
+            <div class="roofing-team">
+                <div class="team-member">
+                    <div class="member-avatar">SC</div>
+                    <h3 class="member-name">Scott MacLeod</h3>
+                    <p class="member-role">Lead Roofer</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">AJ</div>
+                    <h3 class="member-name">Andrew Jackson</h3>
+                    <p class="member-role">Project Manager</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">MR</div>
+                    <h3 class="member-name">Morag Robertson</h3>
+                    <p class="member-role">Quality Control</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">DG</div>
+                    <h3 class="member-name">David Grant</h3>
+                    <p class="member-role">Installation Specialist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="roofing-section roofing-testimonials">
+        <div class="container">
+            <h2 class="roofing-section-title">What Our Customers Say</h2>
+            <div class="testimonial-card">
+                <p class="testimonial-text">Scotts Roofing saved our historic home from a major leak during the winter storm. Their team worked tirelessly to get us back on track quickly. The quality of work is exceptional - we couldn't be happier!</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MJ</div>
+                    <div class="author-info">
+                        <h4>Michael Johnson</h4>
+                        <p>Homeowner, Edinburgh</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">We hired Scotts Roofing for our commercial building and were impressed with their professionalism and attention to detail. They completed the project on time and within budget. The quality of work is truly outstanding.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SL</div>
+                    <div class="author-info">
+                        <h4>Sarah Lewis</h4>
+                        <p>Business Owner, Glasgow</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="roofing-cta">
+        <div class="container">
+            <h2>Ready for Professional Roofing Services?</h2>
+            <p>Get a free quote from Scotland's best roofing experts</p>
+            <a href="contact.html" class="btn-roofing">Request Your Free Quote Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <a href="index.html" class="footer-logo">NPC PROTOCOL</a>
+                    <p class="footer-tagline">
+                        The operating system for ambitious businesses.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">GitHub</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="services.html#web">Web Development</a></li>
+                        <li><a href="services.html#automation">AI & Automation</a></li>
+                        <li><a href="services.html#marketing">Marketing Systems</a></li>
+                        <li><a href="services.html#consulting">Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>hello@npcprotocol.com</li>
+                        <li>Accepting projects for Q3 2025</li>
+                        <li>Response time: Within 24 hours</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 NPC Protocol. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

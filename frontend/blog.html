@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - NPC Protocol</title>
+    <meta name="description" content="Systems thinking for founders, operators, and anyone building something that matters. Articles on AI automation, business systems, marketing, and web development.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">NPC PROTOCOL</a>
+            <ul class="nav-links">
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="courses.html" class="nav-link">Courses</a></li>
+                <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="contact.html" class="btn btn-primary nav-btn">Start a Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero hero-blog">
+        <div class="container hero-content">
+            <h1 class="hero-h1">The NPC Protocol Blog</h1>
+            <p class="hero-subheading">
+                Systems thinking for founders, operators, and anyone building something that matters.
+            </p>
+        </div>
+    </section>
+
+    <!-- Category Filters -->
+    <section class="section blog-filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="ai-automation">AI & Automation</button>
+                <button class="filter-btn" data-category="business-systems">Business Systems</button>
+                <button class="filter-btn" data-category="marketing">Marketing</button>
+                <button class="filter-btn" data-category="web-development">Web Development</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="section">
+        <div class="container">
+            <div id="blog-posts-container" class="blog-posts-grid">
+                <!-- Blog posts will be loaded here by JavaScript -->
+                <div class="skeleton-post-card card">
+                    <div class="skeleton-image"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-category"></div>
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-excerpt"></div>
+                        <div class="skeleton-meta"></div>
+                    </div>
+                </div>
+                <div class="skeleton-post-card card">
+                    <div class="skeleton-image"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-category"></div>
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-excerpt"></div>
+                        <div class="skeleton-meta"></div>
+                    </div>
+                </div>
+                <div class="skeleton-post-card card">
+                    <div class="skeleton-image"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-category"></div>
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-excerpt"></div>
+                        <div class="skeleton-meta"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container text-center">
+                <button id="load-more-btn" class="btn btn-secondary">Load More Articles</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Sidebar -->
+    <aside class="section newsletter-sidebar">
+        <div class="container">
+            <div class="newsletter-card card">
+                <h3>Join Our Newsletter</h3>
+                <p>Get the latest insights on business systems and automation delivered to your inbox.</p>
+                <form id="sidebar-newsletter-form" class="email-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <a href="index.html" class="footer-logo">NPC PROTOCOL</a>
+                    <p class="footer-tagline">
+                        The operating system for ambitious businesses.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">GitHub</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="services.html#web">Web Development</a></li>
+                        <li><a href="services.html#automation">AI & Automation</a></li>
+                        <li><a href="services.html#marketing">Marketing Systems</a></li>
+                        <li><a href="services.html#consulting">Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>hello@npcprotocol.com</li>
+                        <li>Accepting projects for Q3 2025</li>
+                        <li>Response time: Within 24 hours</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 NPC Protocol. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+</html>

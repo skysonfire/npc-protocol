@@ -1,0 +1,53 @@
+:root {
+  /* Brand colors */
+  --brand: #3b82f6; /* blue-500 */
+  --brand-dark: #1e40af; /* blue-700 */
+  --accent: #10b981; /* emerald-500 */
+  --surface: #ffffff; /* white */
+  --text-primary: #1f2937; /* gray-800 */
+  --text-secondary: #6b7280; /* gray-500 */
+  
+  /* Fonts */
+  --font-heading: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  
+  /* Spacing scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+  
+  /* Radius scale */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+  
+  /* Shadow scale */
+  --shadows-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadows-md: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadows-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background-color: var(--surface);
+  line-height: 1.5;
+}
+
+/* Ensure all components use the token system */
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--brand-dark);
+}
