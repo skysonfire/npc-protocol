@@ -1,38 +1,26 @@
 "use client";
 
 import React from 'react';
-import { clientConfig } from '@/content/client-config';
+import Link from 'next/link';
 
 interface CTAProps {
-  variant?: 'basic' | 'hero';
   title: string;
-  description?: string;
-  ctaText: string;
-  ctaLink?: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
 }
 
-const CTA = ({ variant = 'basic', title, description, ctaText, ctaLink }: CTAProps) => {
-  // Basic variant - simple call to action
-  if (variant === 'basic') {
-    return (
-      <div className="bg-gray-50 rounded-lg p-8 text-center">
-        <h3 className="text-2xl font-bold mb-4">{title}</h3>
-        {description && <p className="mb-6">{description}</p>}
-        <button className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition">
-          {ctaText}
-        </button>
-      </div>
-    );
-  }
-
-  // Hero variant - full-width call to action with background
+const CTA = ({ title, description, buttonText, buttonLink }: CTAProps) => {
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg p-8 text-center text-white">
-      <h3 className="text-3xl font-bold mb-4">{title}</h3>
-      {description && <p className="mb-6 text-blue-100">{description}</p>}
-      <button className="bg-white text-blue-600 py-3 px-8 rounded-lg font-bold hover:bg-gray-100 transition">
-        {ctaText}
-      </button>
+    <div className="bg-surface rounded-xl p-8 md:p-12 text-center">
+      <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-4">{title}</h2>
+      <p className="text-text-secondary mb-6 max-w-2xl mx-auto">{description}</p>
+      <Link 
+        href={buttonLink}
+        className="inline-block bg-brand text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-dark transition-colors"
+      >
+        {buttonText}
+      </Link>
     </div>
   );
 };

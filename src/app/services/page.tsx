@@ -9,19 +9,19 @@ const ServicesPage = () => {
   return (
     <PageWrapper>
       <Hero 
-        variant="video-bg" 
+        variant="split" 
         title="Our Services" 
-        subtitle="Comprehensive solutions for modern agencies" 
+        subtitle="Subscription-based web design, AI automation, and marketing — built once, managed forever." 
       />
       <ServicesGrid 
-        variant="alternating-rows" 
-        title="Service Offerings"
+        variant="card-grid" 
+        title="Our Services"
         description="We provide everything you need to succeed in the digital landscape."
         items={[
-          { title: "Website Design", description: "Custom, subscription-based websites built to convert.", icon: "💻" },
-          { title: "AI Automation", description: "Streamline your operations with intelligent workflows.", icon: "🤖" },
-          { title: "Marketing & Lead Gen", description: "Grow your pipeline with targeted campaigns.", icon: "📈" },
-        ]}
+           { title: "Website Design", description: "Custom, subscription-based websites built to convert.", icon: "💻" },
+           { title: "AI Automation", description: "Streamline your operations with intelligent workflows.", icon: "🤖" },
+           { title: "Marketing & Lead Gen", description: "Grow your pipeline with targeted campaigns.", icon: "📈" },
+         ]}
       />
     </PageWrapper>
   );

@@ -8,9 +8,9 @@ const AboutPage = () => {
   return (
     <PageWrapper>
       <Hero 
-        variant="split" 
+        variant="centered" 
         title="About NPC Protocol" 
-        subtitle="The foundation of our agency's delivery system" 
+        subtitle="We build subscription-based websites, AI automation, and marketing systems for growing businesses." 
       />
     </PageWrapper>
   );
