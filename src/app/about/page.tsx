@@ -7,7 +7,11 @@ import Hero from '@/components/sections/Hero';
 const AboutPage = () => {
   return (
     <PageWrapper>
-      <Hero variant="split" />
+      <Hero 
+        variant="split" 
+        title="About NPC Protocol" 
+        subtitle="We build subscription-based websites, AI automation, and marketing systems for growing businesses." 
+      />
     </PageWrapper>
   );
 };
