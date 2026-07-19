@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Brand colors */
   --brand: #3b82f6; /* blue-500 */
