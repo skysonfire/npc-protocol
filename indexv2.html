@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPC Protocol | Master Strategy & Automation</title>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepSlate: '#0F172A',
+                        darkIndigo: '#1E1B4B',
+                        electricViolet: '#8B5CF6',
+                        coralRed: '#F43F5E',
+                        mintEmerald: '#10B981',
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+            --beam-size: 200px;
+        }
+
+        body { background-color: #0F172A; overflow-x: hidden; }
+
+        .glass {
+            background: rgba(30, 27, 75, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 3D Perspective Setup */
+        .perspective-container { perspective: 1200px; }
+        .tilt-card {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        /* Animated Border Beam */
+        .border-beam-container {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            padding: 1px; /* The "border" width */
+        }
+
+        .border-beam-container::before {
+            content: "";
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0%,
+                #8B5CF6 25%,
+                #F43F5E 50%,
+                transparent 75%
+            );
+            animation: spin 4s linear infinite;
+            z-index: -1;
+        }
+
+        .border-beam-inner {
+            background: #0F172A;
+            border-radius: inherit;
+            height: 100%;
+            width: 100%;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Cursor Spotlight */
+        .cursor-spotlight {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(139, 92, 246, 0.08),
+                transparent 80%
+            );
+            z-index: 1;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+
+        /* Grid Background */
+        .bg-grid {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #8B5CF6, #F43F5E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-electricViolet/30">
+
+    <div class="cursor-spotlight"></div>
+    <div class="fixed inset-0 bg-grid pointer-events-none opacity-50"></div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 w-full glass border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 group">
+                <div class="grid grid-cols-3 gap-1 w-8 h-8 items-center">
+                    <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                    <div class="w-2.5 h-2.5 bg-coralRed rotate-45 transform transition-transform group-hover:scale-125"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                </div>
+                <span class="font-extrabold tracking-tighter text-xl">NPC <span class="text-electricViolet font-medium">PROTOCOL</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-white/50">
+                <a href="#shift" class="hover:text-white transition-colors">Architecture</a>
+                <a href="#compliance" class="hover:text-white transition-colors">Compliance</a>
+                <a href="#pilot" class="hover:text-white transition-colors">Pilot</a>
+            </div>
+            <a href="#pilot" class="bg-coralRed px-5 py-2.5 rounded-lg font-extrabold text-xs shadow-[0_0_20px_rgba(244,63,94,0.3)] hover:scale-105 transition-all">
+                BOOK PILOT DEMO
+            </a>
+        </div>
+    </nav>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="pt-24 pb-32 px-6 overflow-hidden">
+            <div class="max-w-5xl mx-auto text-center">
+                <div class="animate-float inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-white/10 mb-8">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute h-full w-full rounded-full bg-mintEmerald opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-mintEmerald"></span>
+                    </span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-black text-white/80">Purpose-Bound AI • Meta 2026 Compliant</span>
+                </div>
+
+                <h1 id="hero-title" class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] mb-8">
+                    The boring work runs on <br>
+                    <span class="text-gradient">autopilot.</span> You run the show.
+                </h1>
+                
+                <p class="text-lg text-white/40 max-w-2xl mx-auto mb-12">
+                    Automate the background grunt work so your business runs at main-character speed. Custom review engines that build empires while you sleep.
+                </p>
+
+                <!-- 3D Tilt Terminal -->
+                <div class="perspective-container max-w-4xl mx-auto mb-32">
+                    <div id="tilt-card" class="tilt-card border-beam-container shadow-2xl">
+                        <div class="border-beam-inner glass p-1">
+                            <div class="h-8 border-b border-white/10 bg-white/5 flex items-center px-4 gap-1.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                                <div class="ml-2 text-[9px] font-mono text-white/20 uppercase tracking-[0.3em]">Protocol.os _ Live Deployment</div>
+                            </div>
+                            <div class="p-8 grid md:grid-cols-2 gap-8 text-left font-mono">
+                                <div class="space-y-4">
+                                    <div class="text-sm opacity-80"><span class="text-mintEmerald">ok</span> Verification Complete.</div>
+                                    <div class="text-sm opacity-80"><span class="text-electricViolet">msg</span> Review sequence sent to client...</div>
+                                    <div class="text-sm font-bold text-mintEmerald underline">SUCCESS: +5 Star Review Captured</div>
+                                </div>
+                                <div class="bg-white/5 rounded-xl p-6 border border-white/5">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-[10px] opacity-40">AUTO-SCALING REPUTATION</span>
+                                        <span class="text-mintEmerald text-xs font-black">+47 TOTAL</span>
+                                    </div>
+                                    <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                                        <div class="h-full bg-mintEmerald w-3/4"></div>
+                                    </div>
+                                    <div class="mt-4 text-[10px] text-white/30">Human Handoff: STANDBY</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Shift (GSAP Trigger Section) -->
+        <section id="shift" class="py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div id="npc-card" class="glass p-12 rounded-[2rem] border-white/5 opacity-30 scale-95 transition-all duration-700">
+                        <span class="text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">The NPC Setup</span>
+                        <h3 class="text-4xl font-bold mt-2 mb-8">Manual Grunt Work</h3>
+                        <ul class="space-y-4 text-white/50">
+                            <li>• Chasing reviews via awkward emails</li>
+                            <li>• Repetitive DM support loops</li>
+                            <li>• Front-desk administrative lag</li>
+                        </ul>
+                    </div>
+
+                    <div id="mc-card" class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-electricViolet to-coralRed rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                        <div class="relative glass p-12 rounded-[2rem] border-electricViolet/50 bg-darkIndigo">
+                            <span class="text-[10px] font-black text-electricViolet uppercase tracking-[0.3em]">The Main Character</span>
+                            <h3 class="text-4xl font-bold mt-2 mb-8">Infrastructure Speed</h3>
+                            <ul class="space-y-4 font-bold text-white/90">
+                                <li class="flex items-center gap-3"><span class="text-mintEmerald">✓</span> Closing High-Ticket Deals</li>
+                                <li class="flex items-center gap-3"><span class="text-mintEmerald">✓</span> Expanding Market Footprint</li>
+                                <li class="flex items-center gap-3"><span class="text-mintEmerald">✓</span> Zero-Touch Reputation Growth</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pilot Offer -->
+        <section id="pilot" class="py-32 px-6">
+            <div class="max-w-4xl mx-auto border-beam-container">
+                <div class="border-beam-inner glass p-12 md:p-20 text-center relative">
+                    <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-6">14-Day Pilot</h2>
+                    <p class="text-xl text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed">
+                        We build, test, and deploy your engine. You pre-approve everything. 
+                        <span class="text-white font-bold underline decoration-mintEmerald underline-offset-8">You only pay when the first batch of 5-star reviews hits.</span>
+                    </p>
+                    <button class="bg-coralRed px-12 py-5 rounded-2xl font-black text-xl shadow-[0_0_40px_rgba(244,63,94,0.4)] hover:scale-105 active:scale-95 transition-all">
+                        SECURE YOUR SLOT
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/60 border-t border-white/5 py-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="text-left">
+                <p class="text-2xl font-black tracking-tighter mb-2">NPC PROTOCOL</p>
+                <p class="text-xs text-white/20 uppercase tracking-[0.4em]">Master Strategy & Brand Addendum</p>
+            </div>
+            <div class="text-right flex flex-col items-end">
+                <div class="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-white/30 mb-4">
+                    <a href="#">Compliance</a>
+                    <a href="#">Security</a>
+                    <a href="#">Privacy</a>
+                </div>
+                <p class="text-[10px] text-white/10 italic">© 2026 NPC Protocol. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Mouse Spotlight Tracker
+        document.addEventListener('mousemove', (e) => {
+            document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+            
+            // 3D Tilt Logic
+            const card = document.getElementById('tilt-card');
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        // Reset Tilt on mouse leave
+        document.getElementById('tilt-card').addEventListener('mouseleave', () => {
+            document.getElementById('tilt-card').style.transform = `rotateX(0deg) rotateY(0deg)`;
+        });
+
+        // 2. GSAP Scroll Animations
+        gsap.to("#npc-card", {
+            scrollTrigger: {
+                trigger: "#shift",
+                start: "top center",
+                end: "bottom center",
+                scrub: true
+            },
+            opacity: 0.1,
+            scale: 0.9,
+            filter: "blur(4px)"
+        });
+
+        gsap.fromTo("#mc-card", 
+            { scale: 0.9, opacity: 0.5 },
+            { 
+                scrollTrigger: {
+                    trigger: "#shift",
+                    start: "top center",
+                    end: "bottom center",
+                    scrub: true
+                },
+                scale: 1.05,
+                opacity: 1,
+                y: -20
+            }
+        );
+
+        // Hero Title Text Reveal
+        gsap.from("#hero-title", {
+            duration: 1.5,
+            y: 100,
+            opacity: 0,
+            ease: "power4.out",
+            skewY: 7
+        });
+    </script>
+</body>
+</html>
